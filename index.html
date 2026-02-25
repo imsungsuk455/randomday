@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>종합 랜덤 게임 - 테스터랩</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Noto+Sans+KR:wght@400;700;900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <!-- Home Screen -->
+    <section id="home-screen" class="screen active">
+      <header>
+        <h1>랜덤데이 (Random Day)</h1>
+        <p>친구들과 즐기는 두근두근 복불복<br><span class="en-text">Thrilling Random Games with Friends</span></p>
+      </header>
+      <div class="game-list">
+        <button id="btn-start-balloon" class="game-card">
+          <div class="card-icon">🎈</div>
+          <h2>랜덤 러시안 물풍선<br><span class="en-title">Random Russian Water Balloon</span></h2>
+          <p>언제 터질지 모르는 아슬아슬한 펌프질!<br><span class="en-text">Risky pumping, you never know when it'll pop!</span></p>
+        </button>
+        <!-- Future games can be added here -->
+        <button id="btn-start-mimic" class="game-card">
+          <div class="card-icon">🧰</div>
+          <h2>미믹을 찾아라<br><span class="en-title">Find the Mimic</span></h2>
+          <p>상자 속 미믹(괴물)을 피해서 끝까지 살아남아라!<br><span class="en-text">Avoid the monsters in chests and survive!</span></p>
+        </button>
+        <button id="btn-start-ice" class="game-card">
+          <div class="card-icon">🧊</div>
+          <h2>아슬아슬 얼음 깨기<br><span class="en-title">Risky Ice Breaker</span></h2>
+          <p>얼음이 와장창! 언제 깨질지 모르는 긴장감 속으로!<br><span class="en-text">Crash! Dive into the tension of breaking ice!</span>
+          </p>
+        </button>
+        <!-- Adding Bomb Game -->
+        <button id="btn-start-bomb" class="game-card">
+          <div class="card-icon">💣</div>
+          <h2>비트 폭탄 돌리기<br><span class="en-title">Beat Bomb Pass</span></h2>
+          <p>비트가 멈출 때 폭탄을 쥐고 있는 사람은?!<br><span class="en-text">Who's holding the bomb when the beat stops?!</span></p>
+        </button>
+      </div>
+    </section>
+
+    <!-- Water Balloon Setup Screen -->
+    <section id="setup-screen" class="screen">
+      <header>
+        <h2>랜덤 러시안 물풍선<br><span class="en-title">Random Russian Water Balloon</span></h2>
+        <p>참가자를 입력해주세요<br><span class="en-text">Please enter participants</span></p>
+      </header>
+      <div class="setup-container">
+        <div class="input-group">
+          <input type="text" id="participant-input" placeholder="이름 입력 (Name)" />
+          <button id="btn-add-participant">추가 (Add)</button>
+        </div>
+        <ul id="participant-list"></ul>
+        <button id="btn-start-game" class="primary-btn" disabled>게임 시작 (Start Game)</button>
+      </div>
+    </section>
+
+    <!-- Water Balloon Game Screen -->
+    <section id="game-screen" class="screen">
+      <div class="turn-indicator">
+        현재 차례: <span id="current-player" class="highlight"></span><br>
+        <span class="en-text">Current Turn</span>
+      </div>
+
+      <div class="balloon-container">
+        <div id="water-balloon" class="balloon">
+          <div class="balloon-highlight"></div>
+          <div class="knot"></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="btn-pump" class="pump-btn">
+          <span class="pump-text">PUMP IT!</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Result Screen -->
+    <section id="result-screen" class="screen">
+      <div class="splash-effect"></div>
+      <div class="result-content">
+        <h2>💦 당첨! (Winner!) 💦</h2>
+        <p class="loser-name">물벼락의 주인공: <span id="loser" class="highlight"></span><br>
+          <span class="en-text">Target of the splash</span>
+        </p>
+        <div class="stats">
+          <p>총 펌프 횟수: <span id="total-pumps">0</span>회<br>
+            <span class="en-text">Total Pumps</span>
+          </p>
+        </div>
+        <button id="btn-restart" class="primary-btn">다시 하기 (Restart)</button>
+        <button id="btn-go-home" class="secondary-btn">홈으로 (Home)</button>
+      </div>
+    </section>
+    <!-- Mimic Setup Screen -->
+    <section id="mimic-setup-screen" class="screen">
+      <header>
+        <h2>미믹을 찾아라<br><span class="en-title">Find the Mimic</span></h2>
+        <p>탐험가를 입력해주세요<br><span class="en-text">Please enter explorers</span></p>
+      </header>
+      <div class="setup-container">
+        <div class="input-group">
+          <input type="text" id="mimic-participant-input" placeholder="이름 입력 (Name)" />
+          <button id="mimic-btn-add-participant">추가 (Add)</button>
+        </div>
+        <ul id="mimic-participant-list"></ul>
+        <button id="mimic-btn-start-game" class="primary-btn" disabled>탐험 시작 (Start Exploring)</button>
+      </div>
+    </section>
+
+    <!-- Mimic Game Screen -->
+    <section id="mimic-game-screen" class="screen">
+      <div class="turn-indicator">
+        현재 차례: <span id="mimic-current-player" class="highlight"></span>
+      </div>
+
+      <div class="mimic-container">
+        <div id="chest-grid" class="chest-grid">
+          <!-- Chests will be generated here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Mimic Result Screen -->
+    <section id="mimic-result-screen" class="screen">
+      <div class="mimic-splash-effect"></div>
+      <div class="result-content mimic-result">
+        <h2 style="color: var(--accent-red); -webkit-text-fill-color: var(--accent-red);">💀 으악! 미믹이다! (Oh no! Mimic!)
+          💀</h2>
+        <p class="loser-name">희생양: <span id="mimic-loser" class="highlight"
+            style="color: var(--accent-red);"></span><br>
+          <span class="en-text">The Victim</span>
+        </p>
+        <button id="mimic-btn-restart" class="primary-btn"
+          style="background: linear-gradient(135deg, #ef4444, #991b1b);">다시 하기 (Restart)</button>
+        <button id="mimic-btn-go-home" class="secondary-btn">홈으로 (Home)</button>
+      </div>
+    </section>
+
+    <!-- Ice Setup Screen -->
+    <section id="ice-setup-screen" class="screen">
+      <header>
+        <h2>아슬아슬 얼음 깨기<br><span class="en-title">Risky Ice Breaker</span></h2>
+        <p>참가자를 입력해주세요<br><span class="en-text">Please enter participants</span></p>
+      </header>
+      <div class="setup-container">
+        <div class="input-group">
+          <input type="text" id="ice-participant-input" placeholder="이름 입력 (Name)" />
+          <button id="ice-btn-add-participant">추가 (Add)</button>
+        </div>
+        <ul id="ice-participant-list"></ul>
+        <button id="ice-btn-start-game" class="primary-btn" disabled>시작하기 (Start)</button>
+      </div>
+    </section>
+
+    <!-- Ice Game Screen -->
+    <section id="ice-game-screen" class="screen">
+      <div class="turn-indicator">
+        현재 차례: <span id="ice-current-player" class="highlight"></span>
+      </div>
+
+      <div class="ice-container">
+        <div id="ice-block" class="ice-block">
+          <div class="ice-content">🧊</div>
+          <!-- Cracks will be generated here -->
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="ice-btn-hit" class="hit-btn">
+          <span class="hit-text">쾅! 내려치기</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Ice Result Screen -->
+    <section id="ice-result-screen" class="screen">
+      <div class="ice-splash-effect"></div>
+      <div class="result-content ice-result">
+        <h2 style="color: var(--accent-cyan); -webkit-text-fill-color: var(--accent-cyan);">❄️ 와장창! (Crash!) ❄️</h2>
+        <p class="loser-name">얼음물 입수: <span id="ice-loser" class="highlight"
+            style="color: var(--accent-cyan);"></span><br>
+          <span class="en-text">Diving into ice water</span>
+        </p>
+        <button id="ice-btn-restart" class="primary-btn"
+          style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">다시 하기 (Restart)</button>
+        <button id="ice-btn-go-home" class="secondary-btn">홈으로 (Home)</button>
+      </div>
+    </section>
+
+    <!-- Bomb Setup Screen -->
+    <section id="bomb-setup-screen" class="screen">
+      <header>
+        <h2>비트 폭탄 돌리기<br><span class="en-title">Beat Bomb Pass</span></h2>
+        <p>참가자를 입력해주세요<br><span class="en-text">Please enter participants</span></p>
+      </header>
+      <div class="setup-container">
+        <div class="input-group">
+          <input type="text" id="bomb-participant-input" placeholder="이름 입력 (Name)" />
+          <button id="bomb-btn-add-participant">추가 (Add)</button>
+        </div>
+        <ul id="bomb-participant-list"></ul>
+        <button id="bomb-btn-start-game" class="primary-btn" disabled>시작하기 (Start)</button>
+      </div>
+    </section>
+
+    <!-- Bomb Game Screen -->
+    <section id="bomb-game-screen" class="screen">
+      <div class="turn-indicator">
+        현재 소지자: <span id="bomb-current-player" class="highlight"></span>
+      </div>
+
+      <div class="bomb-container">
+        <div id="bomb-item" class="bomb-item">
+          <div class="bomb-fuse">
+            <div class="spark"></div>
+          </div>
+          <div class="bomb-content">💣</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="bomb-btn-pass" class="bomb-btn">
+          <span class="hit-text">다음 사람에게 넘기기!<br><span class="en-text" style="font-size: 0.8rem;">Pass it!</span></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Bomb Result Screen -->
+    <section id="bomb-result-screen" class="screen">
+      <div class="bomb-splash-effect"></div>
+      <div class="result-content bomb-result">
+        <h2 style="color: var(--accent-red); -webkit-text-fill-color: var(--accent-red);">💥 쾅! (Boom!) 💥</h2>
+        <p class="loser-name">폭발 당첨: <span id="bomb-loser" class="highlight"
+            style="color: var(--accent-red);"></span><br>
+          <span class="en-text">Explosion target</span>
+        </p>
+        <button id="bomb-btn-restart" class="primary-btn"
+          style="background: linear-gradient(135deg, #f97316, #ea580c);">다시 하기 (Restart)</button>
+        <button id="bomb-btn-go-home" class="secondary-btn">홈으로 (Home)</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="mimic.js"></script>
+  <script src="balloon.js"></script>
+  <script src="ice.js"></script>
+  <script src="bomb.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
