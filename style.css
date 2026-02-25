@@ -800,6 +800,8 @@ body.shaking {
   z-index: 0;
 }
 
+
+
 #ice-result-screen.active .ice-splash-effect {
   animation: splashFade 1s ease-out forwards;
 }
